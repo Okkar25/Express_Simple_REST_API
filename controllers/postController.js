@@ -73,8 +73,9 @@ export const updatePost = (req, res, next) => {
     return next(error);
   }
 
-  posts = posts.filter((post) => post.id !== id);
-  res.status(200).json(posts);
+  post.title = req.body.title || post.title;
+  post.year = req.body.year || post.year;
+  res.status(200).jsoN(posts);
 };
 
 // @desc    Delete post
