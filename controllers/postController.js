@@ -29,7 +29,9 @@ export const getPost = (req, res, next) => {
   const post = posts.find((post) => post.id === id);
 
   if (!post) {
-    res.status(404).json({ message: `No such post with the ID: ${id}` });
+    const error = new Error(`A post with the id of ${id} was not found`);
+    error.status = 404;
+    return next(error);
   }
 
   res.status(200).json(post);
@@ -47,13 +49,47 @@ export const createPost = (req, res, next) => {
   if (!newPost.title) {
     const error = new Error("Please include a title");
     error.status = 400;
-    next(error);
+    return next(error);
   } else if (!newPost.year) {
     const error = new Error("Please include a year");
     error.status = 400;
-    next(error);
+    return next(error);
   }
 
   posts.push(newPost);
   res.status(201).json(posts);
+};
+
+// @desc    Update post
+// @route   PUT /api/posts/:id
+
+export const updatePost = (req, res, next) => {
+  const id = parseInt(req.params.id);
+  const post = posts.find((post) => post.id === id);
+
+  if (!post) {
+    const error = new Error("A post with the id of ${id} was not found");
+    error.status = 404;
+    return next(error);
+  }
+
+  posts = posts.filter((post) => post.id !== id);
+  res.status(200).json(posts);
+};
+
+// @desc    Delete post
+// @route   DELETE /api/posts/:id
+
+export const deletePost = (req, res, next) => {
+  const id = parseInt(req.params.id);
+  const post = posts.find((post) => post.id === id);
+
+  if (!post) {
+    const error = new Error("A post with the id of ${id} was not found");
+    error.status = 404;
+    return next(error);
+  }
+
+  posts = posts.filter((post) => post.id !== id);
+  res.status(200).json(posts);
 };
