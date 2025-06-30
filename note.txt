@@ -5,3 +5,19 @@ http://localhost:8000/api/posts?limit=2&page=2&sort=desc
 
 commonjs  =>  module.exports = posts 
 module    ->  export default posts  
+
+
+middle goes in second argument : 
+
+A middleware is a function that has access to the:
+req (request)
+res (response)
+next (a function to pass control to the next middleware)
+
+(req, res, next) => { /* do something */ }
+
+It sits between the request and the response, and can:
+Modify the request or response
+Run any code (e.g., logging, validation)
+End the request or
+Pass it to the next middleware or route handler using next()

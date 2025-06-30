@@ -39,6 +39,7 @@ export const getPost = (req, res, next) => {
 
 // @desc    Create new post
 // @route   POST /api/posts
+
 export const createPost = (req, res, next) => {
   const newPost = {
     id: posts.length + 1,
@@ -75,7 +76,7 @@ export const updatePost = (req, res, next) => {
 
   post.title = req.body.title || post.title;
   post.year = req.body.year || post.year;
-  res.status(200).jsoN(posts);
+  res.status(200).json(posts);
 };
 
 // @desc    Delete post
