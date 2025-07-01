@@ -21,3 +21,34 @@ Modify the request or response
 Run any code (e.g., logging, validation)
 End the request or
 Pass it to the next middleware or route handler using next()
+
+
+1. Application-level middleware
+app.use(express.json());
+app.use(myLogger);
+
+
+2. Route-level middleware
+app.get('/api/posts', myLogger, (req, res) => {
+  res.send('Posts');
+});
+
+
+3. Built-in middleware (in Express)
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+
+
+4. Third-party middleware
+npm install morgan
+import morgan from 'morgan';
+app.use(morgan('dev'));
+
+
+5. Error-handling middleware (Needs 4 arguments)
+app.use((err, req, res, next) => {
+  console.error(err.message);
+  res.status(err.status || 500).json({ message: err.message });
+});
+
+

@@ -11,6 +11,7 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 
+// Get the directory name
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 // console.log(__filename, __dirname);
@@ -21,10 +22,6 @@ app.use(express.urlencoded({ extended: false }));
 
 // logger middleware
 app.use(logger);
-
-// error handler middleware
-app.use(notFound);
-app.use(errorHandler);
 
 // set up static folder
 app.use(express.static(path.join(__dirname, "public")));
@@ -39,5 +36,9 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
 app.use("/api/posts", handlePosts);
+
+// error handler middleware
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(port, () => console.log(`Server running on ${port}`));

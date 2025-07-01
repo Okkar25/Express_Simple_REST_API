@@ -9,13 +9,6 @@ import {
 
 const router = express.Router();
 
-const logger = (req, res, next) => {
-  console.log(
-    `${req.method} ${req.protocol}://${req.get("host")}${req.originalUrl}`
-  );
-  next();
-};
-
 // GET All Posts
 router.get("/", getPosts);
 
