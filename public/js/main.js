@@ -25,10 +25,12 @@ const showPosts = async () => {
   }
 };
 
+// Submit new post
+
 const addPost = async (e) => {
   e.preventDefault();
 
-  const formData = new FormData(this);
+  const formData = new FormData(e.target);
   const title = formData.get("title");
   const year = formData.get("year");
 
@@ -50,10 +52,19 @@ const addPost = async (e) => {
     output.appendChild(postEl);
 
     showPosts();
+
+    // clearing out form data
+    e.target.reset();
   } catch (error) {
     console.log(`Error creating posts: ${error}`);
   }
 };
 
+// const showLabel = (e) => {
+//   console.log(e.target.innerText);
+// };
+
 // Event Listeners
+// button.addEventListener("dblclick", showLabel);
 button.addEventListener("click", showPosts);
+form.addEventListener("submit", addPost);
